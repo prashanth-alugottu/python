@@ -1,0 +1,1189 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fmodern\fcharset0 Courier-Bold;\f1\fmodern\fcharset0 Courier;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh7840\viewkind0
+\deftab720
+{\*\background {\shp{\*\shpinst\shpleft0\shptop0\shpright0\shpbottom0\shpfhdr0\shpbxmargin\shpbymargin\shpwr0\shpwrk0\shpfblwtxt1\shpz0\shplid1025{\sp{\sn shapeType}{\sv 1}}{\sp{\sn fFlipH}{\sv 0}}{\sp{\sn fFlipV}{\sv 0}}{\sp{\sn fillColor}{\sv 16252922}}{\sp{\sn fFilled}{\sv 1}}{\sp{\sn lineWidth}{\sv 0}}{\sp{\sn fLine}{\sv 0}}{\sp{\sn bWMode}{\sv 9}}{\sp{\sn fBackground}{\sv 1}}}}}
+\pard\pardeftab720\partightenfactor0
+
+\f0\b\fs48 \cf0 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 NumPy Array Copy vs View
+\f1\b0 \
+============================\
+The Difference Between Copy and View\
+The main difference between a copy and a view of an array is that the copy is a new array, and the view is just a view of the original array. The copy owns the data and any changes made to the copy will not affect original array, and any changes made to the original array will not affect the copy.\
+\
+The view does not own the data and any changes made to the view will affect the original array, and any changes made to the original array will affect the view.\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 ========================================================\outl0\strokewidth0 \strokec2 \
+\pard\pardeftab720\partightenfactor0
+\cf0 Example:\
+import numpy as np\
+arr = np.array([1, 2, 3, 4, 5])\
+x = arr.copy()\
+arr[0] = 42\
+print(arr)\
+print(x)\
+\
+NOTE: The copy SHOULD NOT be affected by the changes made to the original array.\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 ========================================================\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \strokec2 \
+\pard\pardeftab720\partightenfactor0
+\cf0 VIEW:\
+Example:\
+import numpy as np\
+arr = np.array([1, 2, 3, 4, 5])\
+x = arr.view()\
+arr[0] = 42\
+print(arr)\
+print(x)\
+\
+NOTE: The view SHOULD be affected by the changes made to the original array.\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 ========================================================\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \strokec2 \
+\pard\pardeftab720\partightenfactor0
+\cf0 Make Changes in the VIEW:\
+Example:\
+import numpy as np\
+arr = np.array([1, 2, 3, 4, 5])\
+x = arr.view()\
+x[0] = 31\
+print(arr)\
+print(x)\
+\
+NOTE: The original array SHOULD be affected by the changes made to the view.\
+========================================================\
+Check if Array Owns its Data\
+As mentioned above, copies owns the data, and views does not own the data, but how can we check this?\
+Every NumPy array has the attribute base that returns None if the array owns the data.\
+Otherwise, the base  attribute refers to the original object.\
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 ========================================================\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \strokec2 \
+Example:\
+import numpy as np\
+arr = np.array([1, 2, 3, 4, 5])\
+x = arr.copy()\
+y = arr.view()\
+print(x.base) // owns data\
+print(y.base) // not owned data\
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 ========================================================\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \strokec2 \
+Python NumPy Array Creation using existing data\
+Numpy library provides various ways to create an array from the existing data:\
+1    numpy.asarray\
+2    numpy.frombuffer\
+3    numpy.fromiter\
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \shad\shadx0\shady60\shadr200\shado170 \shadc0 ========================================================\shad0 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \strokec2 \
+\pard\pardeftab720\partightenfactor0
+\cf0 1. Python Sequence to Array - Using numpy.asarray\
+It is used for converting the Python sequence into ndarray. It is somehow similar to numpy.array but it has fewer parameters than numpy.array. It is mainly used to create an array by using the existing data that is in the form of lists, or tuples.\
+\
+Syntax:\
+numpy.asarray(sequence,  dtype, order) \
+\
+1. Sequence ==> List, Tuple or Any Combination\
+2. dtype ==> int, str, float\
+3. order ==> Row Major ==> C, \
+	Column Major ==> F\
+\
+[[10 20 30\
+40 50 60]]\
+\
+\shad\shadx0\shady60\shadr200\shado87 \shadc0 Row Major Order is ==>  10 20 30 40 50 60\
+Column Major Order is ==> 10 40 20 50 30 60\shad0 \
+\
+NOTE: Ordre Attribute perfectly executed with multi dimensional array...!!\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \shad\shadx0\shady60\shadr200\shado170 \shadc0 \
+========================================================\
+\outl0\strokewidth0 \strokec2 \shad\shadx0\shady60\shadr200\shado87 \shadc0 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \AppleHighlight-1 List is separated by comma ==> [1,2,3,4]\
+Array is separted by space ==> [1 2 3 4]\AppleHighlight0 \shad0 \
+\
+Example:\
+import numpy as np  \
+PyList=[10,20,30,40,50]\
+PyResult=np.asarray(PyList,dtype=float)\
+print(PyResult)\
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \shad\shadx0\shady60\shadr200\shado170 \shadc0 ========================================================\outl0\strokewidth0 \strokec2 \shad0 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+Example:\
+import numpy as np  \
+PyList=[10,20,30,40,50]\
+PyResult=np.asarray(PyList,dtype=float,order='C')\
+print(PyResult)\
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \shad\shadx0\shady60\shadr200\shado170 \shadc0 ========================================================\outl0\strokewidth0 \strokec2 \shad0 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+Example:\
+import numpy as np  \
+PyList=[[10,20,30],[40,50,60]]\
+print(PyList)\
+PyResult=np.asarray(PyList,dtype=int,order='F')\
+print(PyResult)\
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \shad\shadx0\shady60\shadr200\shado170 \shadc0 ========================================================\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \strokec2 \shad0 \
+\pard\pardeftab720\partightenfactor0
+\cf0 numpy.nditer:\
+It is an efficient multidimensional iterator object that is used to iterate over an array in the Numpy library.\
+\
+Syntax:\
+numpy.nditer(sequence/ndarray)\
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \shad\shadx0\shady60\shadr200\shado170 \shadc0 ========================================================\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \strokec2 \shad0 \
+\pard\pardeftab720\partightenfactor0
+\cf0 Example:\
+import numpy as np\
+PyArr = np.arange(0,40,5)\
+print (PyArr)\
+for item in np.nditer(PyArr):\
+    print(item)\
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \shad\shadx0\shady60\shadr200\shado170 \shadc0 ========================================================\outl0\strokewidth0 \strokec2 \shad0 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+Example:\
+import numpy as np\
+PyArr = np.arange(0,40,5,'complex')\
+print (PyArr)\
+for item in np.nditer(PyArr):\
+    print(item)\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \shad\shadx0\shady60\shadr200\shado170 \shadc0 \
+========================================================\outl0\strokewidth0 \strokec2 \shad0 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+Example:Row Major Order\
+import numpy as np  \
+PyList=[[10,20,30],[40,50,60]]\
+print(PyList)\
+PyResult=np.asarray(PyList,dtype=int,order='C')\
+print(PyResult)\
+for i in np.nditer(PyResult):\
+    print(i)\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \shad\shadx0\shady60\shadr200\shado170 \shadc0 \
+========================================================\outl0\strokewidth0 \strokec2 \shad0 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+Example:Column Major Order\
+import numpy as np  \
+PyList=[[10,20,30],[40,50,60]]\
+print(PyList)\
+PyResult=np.asarray(PyList,dtype=int,order='F')\
+print(PyResult)\
+for i in np.nditer(PyResult):\
+    print(i)\
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \shad\shadx0\shady60\shadr200\shado170 \shadc0 ========================================================\outl0\strokewidth0 \strokec2 \shad0 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+2. Using numpy.frombuffer\
+It is used to create an array by using the specified buffer.\
+\
+Syntax:\
+numpy.frombuffer(buffer, dtype, count, offset)\
+1 count means length of result, default -1, total string\
+2 offset means from starting position, default 0 index\
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \shad\shadx0\shady60\shadr200\shado170 \shadc0 ========================================================\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \strokec2 \shad0 \
+\pard\pardeftab720\partightenfactor0
+\cf0 Example:\
+import numpy as np  \
+# intialize bytes\
+PyStr = b'PYTHON'  #b is prefix, it saved in terms of bytes(ASCII) not in string format.\
+print(type(PyStr))  \
+ByF = np.frombuffer(PyStr, "S1")  #S1 means 1 byte data\
+print(ByF)  \
+print(type(ByF))  \
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \shad\shadx0\shady60\shadr200\shado170 \shadc0 ========================================================\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \strokec2 \shad0 \
+\pard\pardeftab720\partightenfactor0
+\cf0 Example:\
+import numpy as np  \
+# intialize bytes\
+PyStr = b'PYTHON'  \
+print(type(PyStr))  \
+ByF = np.frombuffer(PyStr,"S1",count=-1,offset=0)  \
+print(ByF)  \
+print(type(ByF))  \
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \shad\shadx0\shady60\shadr200\shado170 \shadc0 \
+========================================================\outl0\strokewidth0 \strokec2 \shad0 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+Example:\
+import numpy as np  \
+# intialize bytes\
+PyStr = b'PYTHON'  \
+print(type(PyStr))  \
+ByF = np.frombuffer(PyStr,"S1",count=2,offset=0)  \
+print(ByF)  \
+print(type(ByF))  \
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \shad\shadx0\shady60\shadr200\shado170 \shadc0 ========================================================\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \strokec2 \shad0 \
+\pard\pardeftab720\partightenfactor0
+\cf0 Example:\
+import numpy as np  \
+# intialize bytes\
+PyStr = b'PYTHON'  \
+print(type(PyStr))  \
+ByF = np.frombuffer(PyStr,"S1",count=3,offset=3)  \
+print(ByF)  \
+print(type(ByF))  \
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \shad\shadx0\shady60\shadr200\shado170 \shadc0 ========================================================\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \strokec2 \shad0 \
+\pard\pardeftab720\partightenfactor0
+\cf0 3. Using numpy.fromiter\
+It is used to create an ndarray by using an iterable object. This routine mainly returns a one-dimensional ndarray object.\
+\
+Syntax:\
+numpy.fromiter(iterable, dtype, count)\
+1. iterable ==> list or tuple\
+2. dtype ==> int, float,,str\
+3. count ==> Length of returned array, default -1\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \shad\shadx0\shady60\shadr200\shado170 \shadc0 \
+========================================================\outl0\strokewidth0 \strokec2 \shad0 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+Example:\
+import numpy as np  \
+PyTuple = (2,4,6,20)  \
+\pard\tx10959\tx11052\tx11052\pardeftab720\partightenfactor0
+\cf0 Iter = iter(PyTuple)  \
+\pard\pardeftab720\partightenfactor0
+\cf0 PyFor = np.fromiter(Iter, dtype = float)  \
+print(PyFor)  \
+print(type(PyFor)) \
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \shad\shadx0\shady60\shadr200\shado170 \shadc0 ========================================================\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \strokec2 \shad0 \
+\pard\tx622\tx1052\tx1223\pardeftab720\li493\fi-494\partightenfactor0
+\cf0 Example:\
+\pard\pardeftab720\partightenfactor0
+\cf0 import numpy as np  \
+PyTuple = (2,4,6,20)  \
+Iter = iter(PyTuple)  \
+PyFor = np.fromiter(Iter, dtype = int,count=-1)  \
+print(PyFor)  \
+print(type(PyFor)) \
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \shad\shadx0\shady60\shadr200\shado170 \shadc0 ========================================================\outl0\strokewidth0 \strokec2 \shad0 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+Example:\
+import numpy as np  \
+PyTuple = (2,4,6,20)  \
+Iter = iter(PyTuple)  \
+PyFor = np.fromiter(Iter,int,count=2)\
+print(PyFor)  \
+print(type(PyFor)) \
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \shad\shadx0\shady60\shadr200\shado170 \shadc0 ========================================================\outl0\strokewidth0 \strokec2 \shad0 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+Python NumPy Array Creation from Numerical Ranges\
+The Numpy library provides some functions to create an array from the given specified range. \
+1    numpy.arange\
+2    numpy.linspace\
+3    numpy.logspace\
+\
+1. Using numpy.arange\
+It is used to create an array by using the evenly spaced values over any given interval.\
+\
+Syntax:\
+numpy.arrange(start, stop, step, dtype)  \
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \shad\shadx0\shady60\shadr200\shado170 \shadc0 ========================================================\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \strokec2 \shad0 \
+\pard\pardeftab720\partightenfactor0
+\cf0 Example:\
+import numpy as np \
+PyArr = np.arange(10) \
+print (PyArr)\
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \shad\shadx0\shady60\shadr200\shado170 \shadc0 ========================================================\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \strokec2 \shad0 \
+\pard\pardeftab720\partightenfactor0
+\cf0 Example:\
+import numpy as np  \
+PyArr=np.arange(0,10,2,complex)  \
+print(PyArr)  \
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \shad\shadx0\shady60\shadr200\shado170 \shadc0 ========================================================\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \strokec2 \shad0 \
+\pard\pardeftab720\partightenfactor0
+\cf0 Example:\
+import numpy as np  \
+PyArr=np.arange(0,10,2,int)  \
+print(PyArr)  \
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \shad\shadx0\shady60\shadr200\shado170 \shadc0 \
+========================================================\outl0\strokewidth0 \strokec2 \shad0 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+2. Using numpy.linspace\
+It is similar to the arange() function. But there is a major difference and it is in this function, instead of step size, the number of evenly spaced values between the interval is specified using the num argument.\
+\
+Syntax:\
+numpy.linspace(start, stop, num,endpoint, retstep,dtype)   \
+\
+start    => start of interval range. \
+stop     =>  end of interval range\
+num      => [int, optional] No. of samples to generate, Default 50\
+endpoint => If True, stop index is included, If False Not Included. Default, True\
+ReturnStep   => It returns the difference between values. True-Visible, False-NotVisible(Default)\
+dtype    => type of output array\
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \shad\shadx0\shady60\shadr200\shado170 \shadc0 ========================================================\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \strokec2 \shad0 \
+\pard\pardeftab720\partightenfactor0
+\cf0 Example:\
+import numpy as np  \
+PyArr = np.linspace(0, 10, 5)  \
+print(PyArr) \
+\
+Example:\
+import numpy as np  \
+PyArr = np.linspace(0, 10, 5)  \
+print(PyArr)\
+PyArr = np.linspace(0, 10, 3)  \
+print(PyArr)\
+PyArr = np.linspace(10, 20, 3,endpoint=False)  #EndIndexNotIncluded\
+print(PyArr)\
+PyArr = np.linspace(0, 10, 5,endpoint=False,retstep=True)  \
+print(PyArr)\
+PyArr = np.linspace(0, 10, 5,endpoint=False,retstep=True,dtype=int)  \
+print(PyArr)\
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \shad\shadx0\shady60\shadr200\shado170 \shadc0 ========================================================\outl0\strokewidth0 \strokec2 \shad0 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+3. Using numpy.logspace\
+It is used to create an array by using the numbers that are evenly separated on a log scale.\
+\
+Syntax:\
+numpy.logspace(start, stop, num, endpoint, base, dtype) \
+start    => start of interval range. \
+stop     =>  end of interval range\
+num      => [int, optional] No. of samples to generate, Default 50\
+endpoint => If True, stop index is included, If False Not Included.Default, True\
+base     => [float, optional] Base of log scale. Default-10.0\
+dtype    => type of output array\
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \shad\shadx0\shady60\shadr200\shado170 \shadc0 ========================================================\outl0\strokewidth0 \strokec2 \shad0 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+Example:\
+import numpy as np  \
+PyData = np.logspace(0, 10, num = 5, endpoint = True)  \
+print(PyData)\
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \shad\shadx0\shady60\shadr200\shado170 \shadc0 ========================================================\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \strokec2 \shad0 \
+\pard\pardeftab720\partightenfactor0
+\cf0 Example:\
+import numpy as np  \
+Arr = np.logspace(0, 10, num = 5, endpoint = False, base = 2)  \
+print(Arr) \
+\
+Example:\
+import numpy as np  \
+PyData = np.logspace(0, 10, base=3,endpoint = False)  \
+print(PyData)\
+PyData = np.logspace(0, 10, base=3,endpoint = False,dtype=int)  \
+print(PyData)\
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \shad\shadx0\shady60\shadr200\shado170 \shadc0 ========================================================\outl0\strokewidth0 \strokec2 \shad0 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+NumPy Array Shape:\
+The shape of an array is the number of elements in each dimension. NumPy arrays have an attribute called shape that returns a tuple with each index having the number of corresponding elements.\
+\
+Example:displays total rows & colums (shape attrubute)\
+import numpy as np\
+PyArr = np.array([1,2,3,4,5])\
+print(PyArr.shape)\
+\
+Example:\
+import numpy as np\
+PyArr = np.array(([1,2,3,4,5],[6,7,8,9,10]))\
+print(PyArr.shape)\
+print(PyArr)\
+\
+Example: Print the shape of a 2-D array:\
+import numpy as np\
+PyArr = np.array([[1, 2, 3, 4], [5, 6, 7, 8]])\
+print(PyArr.shape) \
+\
+NOTE:\
+Example returns (2, 4), which means that the array has 2 dimensions, and each dimension has 4 elements.\
+\
+Example: Print the shape of a 2-D array:\
+import numpy as np\
+PyArr = np.array([[1, 2, 3, 4], [5, 6, 7, 8],[8,9,10,11]])\
+print(PyArr.shape) \
+\
+Example\
+import numpy as np\
+PyArr = np.array([[1, 2, 3,], [4, 5, 6],[7,8,9]])\
+print(PyArr.shape) \
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \shad\shadx0\shady60\shadr200\shado170 \shadc0 ========================================================\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \strokec2 \shad0 \
+\pard\pardeftab720\partightenfactor0
+\cf0 NumPy reshape() method:\
+It is mainly used to change the shape of the array without changing its original data.It helps in providing new shape to an array, which can be useful baed on your usecase.\
+\
+Syntax\
+numpy.reshape(a, newshape, order='C')\
+\
+Example:\
+import numpy as np\
+PyArr = np.array([(8,9,10),(11,12,13)])\
+print(PyArr)\
+PyArr=PyArr.reshape(3,2)\
+print(PyArr)\
+\
+Reshape From 1-D to 2-D\
+Example:\
+import numpy as np\
+PyArr = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])\
+NewArr = PyArr.reshape(4, 3)\
+print(NewArr) \
+\
+Reshape From 1-D to 3-D\
+Example:\
+import numpy as np\
+PyArr = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])\
+NewArr = PyArr.reshape(2, 3, 2)\
+print(NewArr)\
+\
+Example:\
+import numpy as np\
+PyArr1 = np.arange(12) \
+print(PyArr1) \
+PyArr2= np.arange(12).reshape(2, 6) \
+print(PyArr2) \
+PyArr3 = np.arange(12).reshape(6,2) \
+print(PyArr3) \
+PyArr4 = np.arange(12).reshape(2, 3, 2) \
+print(PyArr4) \
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \shad\shadx0\shady60\shadr200\shado170 \shadc0 ========================================================\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \strokec2 \shad0 \
+\pard\pardeftab720\partightenfactor0
+\cf0 Example:\
+import numpy as np  \
+PyArr1 = np.arange(12)  \
+print(PyArr1)\
+print()\
+PyArr2 = np.reshape(PyArr1, (4, 3), order='F')  \
+print(PyArr2)\
+print()\
+PyArr3 = np.reshape(PyArr1, (4, 3), order='C')  \
+print(PyArr3)\
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \shad\shadx0\shady60\shadr200\shado170 \shadc0 ========================================================\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \strokec2 \shad0 \
+\pard\pardeftab720\partightenfactor0
+\cf0 eye() function\
+It is used to create a 2-D array with ones on the diagonal and zeros elsewhere.\
+take square matrix, initialize 1's on all diagonal positions, 0's on all Non-diagonal positions.\
+\
+Syntax:\
+numpy.eye(N, M=None, k=0, dtype='float')\
+\
+N	Number of rows in the output.			\
+M	Number of columns in the output. If None, defaults to N.	\
+k	Index of the diagonal: 0\
+dtype	Data-type of the returned array.\
+\
+Example:\
+import numpy as np\
+print(np.eye(2))\
+print(np.eye(3,3))\
+print(np.eye(3,3,dtype=int))\
+\
+Example:\
+import numpy as np\
+print(np.eye(2,k=-1))\
+print(np.eye(2,2,k=-1))\
+print(np.eye(3,3,k=-2))\
+print(np.eye(3,3,k=2))\
+\
+NOTE: Main diagonal is ZERO. -1 is lower part of the main diagonal.\
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \shad\shadx0\shady60\shadr200\shado170 \shadc0 ========================================================\outl0\strokewidth0 \strokec2 \shad0 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+NumPy Array Iterating\
+Iterating means going through elements one by one. As we deal with multi-dimensional arrays in numpy, we can do this using basic for loop of python. If we iterate on a 1-D array it will go through each element one by one.\
+\
+Example: Iterate on the elements 1-D Array:\
+import numpy as np\
+PyArr = np.array([1, 2, 3])\
+for data in PyArr:\
+  print(data) \
+\
+Iterating 2-D Arrays\
+Example:\
+import numpy as np\
+PyArr = np.array([[1, 2, 3], [4, 5, 6]])\
+for data in PyArr:\
+  print(data) \
+\
+Example:Iterate on each scalar element of the 2-D array:\
+import numpy as np\
+PyArr = np.array([[1, 2, 3], [4, 5, 6]])\
+for data in PyArr:\
+  for pdata in data:\
+    print(pdata) \
+\
+Iterating 3-D Arrays\
+Example:\
+import numpy as np\
+PyArr = np.array([[[1, 2, 3], [4, 5, 6]], [[7, 8, 9], [10, 11, 12]]])\
+for data in PyArr:\
+  print(data) \
+\
+Example:\
+import numpy as np\
+PyArr = np.array([[[1, 2, 3], [4, 5, 6]], [[7, 8, 9], [10, 11, 12]]])\
+for data in PyArr:\
+  for pdata in data:\
+    for qdata in pdata:\
+      print(qdata) \
+\
+Iterating Arrays Using nditer()\
+It is a helping function that can be used from very basic to very advanced iterations.\
+\
+Syntax:\
+numpy.nditer(sequence/ndarray)\
+\
+Iterating on Each Scalar Element\
+In basic for loops, iterating through each scalar of an array we need to use n for loops which can be difficult to write for arrays with very high dimensionality.\
+\
+Example:Iterate through the following 3-D array:\
+import numpy as np\
+PyArr = np.array([[[1, 2], [3, 4]], [[5, 6], [7, 8]]])\
+for data in np.nditer(PyArr):\
+  print(data)\
+\
+Enumerated Iteration Using ndenumerate()\
+Enumeration means mentioning sequence number of somethings one by one.\
+\
+Syntax:\
+np.ndenumerate(array)\
+\
+Example: Enumerate on following 1D arrays elements:\
+import numpy as np\
+PyArr = np.array([1, 2, 3])\
+for idx, data in np.ndenumerate(PyArr):\
+  print(idx, data) \
+\
+Example: Enumerate on following 2D array's elements:\
+import numpy as np\
+PyArr = np.array([[1, 2, 3, 4], [5, 6, 7, 8]])\
+for idx, data in np.ndenumerate(PyArr):\
+  print(idx, data) \
+\
+\
+NumPy Joining Array\
+NumPy concatenate() Method:\
+It is mainly used in order to combine two or more NumPy arrays together. Concatenation of two numpy arrays simply means their stacking. it is taken default as 0.\
+\
+Syntax:\
+numpy.concatenate((a1, a2, ...), axis=0)\
+\
+a1 ==> It is Array1\
+a2 ==> It is Array2\
+axis ==> 0==> Cols(Default), 1==> Rows\
+\
+Example:\
+import numpy as np\
+PyArr1 = np.array([1, 2, 3])\
+PyArr2 = np.array([4, 5, 6])\
+PyArr3 = np.concatenate((PyArr1, PyArr2))\
+print(PyArr3) \
+\
+Example: axis-1->Rows\
+import numpy as np\
+PyArr1 = np.array([[1, 2], [3, 4]])\
+PyArr2 = np.array([[5, 6], [7, 8]])\
+PyArr = np.concatenate((PyArr1,PyArr2), axis=1)\
+print(PyArr) \
+\
+Example:axis-0-Cols\
+import numpy as np\
+PyArr1 = np.array([[1, 2], [3, 4]])\
+PyArr2 = np.array([[5, 6], [7, 8]])\
+PyArr = np.concatenate((PyArr1,PyArr2), axis=0)\
+print(PyArr) \
+\
+Example:axis-0 default-cols\
+import numpy as np\
+PyArr1=np.arange(6).reshape(2,3)\
+print(PyArr1)\
+PyArr2=np.arange(7,13).reshape(2,3)\
+print(PyArr2)\
+print(np.concatenate((PyArr1,PyArr2)))\
+\
+Example:axis -1-rows\
+import numpy as np\
+PyArr1=np.arange(6).reshape(2,3)\
+print(PyArr1)\
+PyArr2=np.arange(7,13).reshape(2,3)\
+print(PyArr2)\
+print(np.concatenate((PyArr1,PyArr2),axis=1))\
+\
+Example: With axis=0 & axis=1\
+import numpy as np\
+PyArray1 = np.array([[5, 4], [6, 8]]) \
+PyArray2 = np.array([[13, 5], [72, 9]]) \
+PyOut= np.concatenate((PyArray1, PyArray2), axis = 0) \
+print (PyOut) \
+PyOut= np.concatenate((PyArray1, PyArray2), axis = 1) \
+print (PyOut) \
+\
+Joining Arrays Using Stack Functions\
+Stacking is same as concatenation, the only difference is that stacking is done along a new axis. Result is in two different dimensions.\
+\
+Syntax:\
+np.stack(a,b,axis)\
+\
+a ==> It is Array1\
+b ==> It is Array2\
+axis ==> 0==> Cols(Default), 1==> Rows\
+\
+Example:Default axis-0\
+import numpy as np\
+PyArr1=np.arange(6).reshape(2,3)\
+print(PyArr1)\
+PyArr2=np.arange(7,13).reshape(2,3)\
+print(PyArr2)\
+print(np.stack((PyArr1,PyArr2)))\
+print(np.stack((PyArr1,PyArr2),axis=0))\
+\
+Example:\
+import numpy as np\
+PyArr1=np.arange(6).reshape(2,3)\
+print(PyArr1)\
+PyArr2=np.arange(7,13).reshape(2,3)\
+print(PyArr2)\
+print(np.stack((PyArr1,PyArr2),axis=1))\
+\
+Stacking Along Rows\
+NumPy provides a helper function: hstack() to stack along rows.\
+\
+Syntax\
+np.hstack(a,b)\
+\
+Example:\
+import numpy as np\
+PyArr1=np.arange(6).reshape(2,3)\
+print(PyArr1)\
+PyArr2=np.arange(7,13).reshape(2,3)\
+print(PyArr2)\
+print(np.hstack((PyArr1,PyArr2)))\
+print(np.concatenate((PyArr1,PyArr2),axis=1))\
+\
+Stacking Along Columns\
+NumPy provides a helper function: vstack()  to stack along columns.\
+\
+Syntax\
+np.vstack(a,b)\
+\
+Example:\
+import numpy as np\
+PyArr1=np.arange(6).reshape(2,3)\
+print(PyArr1)\
+PyArr2=np.arange(7,13).reshape(2,3)\
+print(PyArr2)\
+print(np.vstack((PyArr1,PyArr2)))\
+print(np.concatenate((PyArr1,PyArr2),axis=0))\
+\
+NOTE: Axis=0 Indicates =>vstack, Axis=1 Indicates => hstack\
+\
+Example:\
+import numpy as np\
+pdata= np.array([(1,2,3),(3,4,5)])\
+qdata= np.array([(1,2,3),(3,4,5)])\
+print(np.vstack((pdata,qdata)))\
+print(np.hstack((pdata,qdata)))\
+\
+Stacking Along Height (depth)\
+NumPy provides a helper function: dstack() to stack along height, which is the same as depth.\
+\
+Example:\
+import numpy as np\
+PyArr1=np.arange(6).reshape(2,3)\
+print(PyArr1)\
+PyArr2=np.arange(7,13).reshape(2,3)\
+print(PyArr2)\
+print(np.dstack((PyArr1,PyArr2)))\
+\
+\
+NumPy Splitting Array\
+Splitting is reverse operation of Joining. Joining merges multiple arrays into one and Splitting breaks one array into multiple. \
+\
+Split() method:Dividing an array into equal to splits.\
+\
+Syntax:\
+split(Array,No.OfSplits,axis)\
+Array ==> Sequence of elements\
+No.OfSplits ==> Equal Splits\
+\
+Example:\
+import numpy as np\
+PyArr = np.array([1, 2, 3, 4, 5, 6])\
+NewArr = np.split(PyArr, 3)\
+print(NewArr) \
+\
+Example:\
+import numpy as np\
+PyArr = np.array([1, 2, 3, 4])\
+NewArr = np.split(PyArr,2)\
+print(NewArr) \
+\
+Example:#Value Error\
+import numpy as np\
+PyArr = np.array([1, 2, 3, 4, 5])\
+NewArr = np.split(PyArr, 3)\
+print(NewArr) \
+\
+Example: axis=0 default\
+import numpy as np\
+PyArr = np.array([1, 2, 3, 4, 5, 6])\
+NewArr = np.split(PyArr, 3,axis=0)\
+print(NewArr) \
+\
+Example:axis=1\
+import numpy as np\
+PyArr = np.array([[1, 2, 3, 4, 5, 6]])\
+NewArr = np.split(PyArr, 3,axis=1)\
+print(NewArr) \
+\
+array_split(): \
+We pass it the array we want to split and the number of splits. Arrangement done based on right to left direction.\
+\
+Syntax:\
+split(Array,No.OfSplits)\
+Array ==> Sequence of elements\
+No.OfSplits ==> Equal Splits or UnEqual Splits\
+\
+Example:\
+import numpy as np\
+PyArr = np.array([1, 2, 3, 4, 5, 6])\
+NewArr = np.array_split(PyArr, 3)\
+print(NewArr) \
+\
+Example:\
+import numpy as np\
+PyArr = np.array([1, 2, 3, 4, 5, 6])\
+NewArr = np.array_split(PyArr, 4)\
+print(NewArr) \
+\
+Split Into Arrays\
+Example:\
+import numpy as np\
+PyArr = np.array([1, 2, 3, 4, 5, 6])\
+NewArr = np.array_split(PyArr, 3)\
+print(NewArr[0])\
+print(NewArr[1])\
+print(NewArr[2]) \
+\
+Example:2-D\
+import numpy as np\
+PyArr = np.array([[1, 2], [3, 4], [5, 6], [7, 8], [9, 10], [11, 12]])\
+NewArr = np.array_split(PyArr, 3)\
+print(NewArr)\
+NewArr = np.array_split(PyArr, 6)\
+print(NewArr)\
+\
+hsplit() method:Horizontal Split\
+\
+Syntax:\
+np.hsplit(Array,NoOfSplits)\
+\
+Example:\
+import numpy as np\
+PyArr = np.array([1, 2, 3, 4,5, 6,])\
+NewArr = np.hsplit(PyArr,3)\
+print(NewArr)\
+\
+vsplit() ==> This method is not applicable for single dimension. Minimum 2DArray required.\
+\
+Syntax:\
+np.vsplit(Array,NoOfSplits)\
+\
+Example:\
+import numpy as np\
+PyArr = np.array([[1, 2, 3], [4,5, 6,]])\
+NewArr = np.vsplit(PyArr,2)\
+print(NewArr)\
+\
+\
+\
+NumPy Searching Arrays:\
+You can search an array for a certain value, and return the indexes that get a match. To search an array, use the where() method.\
+\
+Example:\
+import numpy as np\
+PyArr=np.array([10,1,2,3,4,100,20])\
+print(np.where(PyArr==10))\
+\
+Example:\
+import numpy as np\
+Arr = np.array([1, 2, 3, 4, 5, 4, 4])\
+x = np.where(Arr == 4)\
+print(x) \
+\
+Example:\
+import numpy as np\
+Arr = np.array([1, 2, 3, 4, 5, 6, 7, 8])\
+x = np.where(Arr%2 == 0)\
+print(x) \
+\
+NumPy arange() function  \
+It is one of the array creation routines that is usually based on numerical ranges. It basically creates an instance of ndarray with evenly spaced values and returns the reference to it.\
+\
+Syntax:\
+numpy.arange(start, stop, step, dtype)  \
+\
+Example:\
+import numpy as np\
+PyArr=np.arange(12)\
+print(PyArr)\
+\
+Example:\
+import numpy as np\
+PyArr=np.arange(start=2, stop=12)\
+print(PyArr)\
+\
+Example:\
+import numpy as np\
+PyArr=np.arange(start=2, stop=12, step=2)\
+print(PyArr)\
+\
+Example 4: Providing Negative Arguments\
+import numpy as np\
+PyArr=np.arange(-10, -1)\
+print(PyArr)\
+\
+Example:\
+import numpy as np\
+PyArr=np.arange(10,100,10)\
+print(PyArr)\
+print(np.where(PyArr==40))\
+print(np.where(PyArr==60))\
+print(np.where(PyArr%30==0))\
+\
+Numpy searchsorted() Method\
+It present in the numpy library of python used to deal with sorted arrays. The function is used to determine the index of an element while inserting it into a sorted array.\
+\
+Syntax:\
+numpy.searchsorted(a, v, side='left', sorter=None)\
+\
+Parameters:\
+a: It is the input array of one dimension\
+v: It is the new value that has to be inserted into the array  a \
+side: It is an optional parameter whose value by default is  left.\
+sorter: It is again an optional value that is set to  None  by default\
+\
+Example:\
+import numpy as np\
+PyArr=np.array([1,10,11,15,21])\
+PyEle = np.searchsorted(PyArr, 17)\
+print(PyEle)\
+\
+Example:\
+import numpy as np\
+PyArr=np.array([1,10,11,15,21])\
+PyEle = np.searchsorted(PyArr, 17)\
+print(PyEle)\
+print(np.insert(PyArr,4 ,17))\
+\
+Example:\
+import numpy as np\
+PyArr = np.array([10,20,30,40,50,60,70,80,90])\
+print(np.searchsorted(PyArr,45))\
+print(np.searchsorted(PyArr,[15,25,35]))\
+\
+Example:\
+import numpy as np\
+PyArr=np.array([1,10,11,15,21])\
+PyEle=np.searchsorted(PyArr,[-7, -1, 20,3,30])\
+print(PyEle)\
+print(np.insert(PyArr,[0, 0, 4, 1,5] ,[-7, -1, 20,3,30]))\
+\
+Example:Searching from right hand side:\
+import numpy as np\
+PyArr=np.searchsorted([1,2,3,3,5,6], 3)\
+print(PyArr)\
+PyArr=np.searchsorted([1,2,3,3,5,6], 3,side='right')\
+print(PyArr)\
+\
+Example:Searchsorted for string values\
+import numpy as np\
+print(np.searchsorted(['apple','vinegar','zucchini'], 'bananas'))\
+print(np.searchsorted(['apple','vinegar','zucchini'], 'Bananas'))\
+\
+Numpy searchsorted with 2D array\
+The numpy searchsorted function only accepts a one-dimensional array as an argument. If you will try to pass a multi-dimensional array, it will raise the error  object too deep for the desired array .\
+\
+Example:\
+import numpy as np\
+PyArr = [[1,2,6],[3,4,10]]\
+print(np.searchsorted(PyArr[0], 2))\
+print(np.searchsorted(PyArr[1], 10))\
+\
+Example:\
+import numpy as np\
+PyArr = np.array([[1,2,6],[3,4,10]])\
+NewArr = PyArr.flatten()\
+NewArr.sort()\
+print(NewArr)\
+print(np.searchsorted(NewArr, 9))\
+\
+What is the difference between numpy.where() and numpy.searchsorted() function?\
+In the numpy.where() function, we mention a condition in the argument of the function. The values from the array which fulfill that condition will be printed. Whereas in numpy.searchsorted(), it returns the index of the specified element(s) to be inserted into the sorted array in order to maintain the sorting sequence.\
+\
+axis attribute using sum method:\
+The columns are called as axis 0.\
+The rows are called as axis 1 \
+\
+Example:\
+import numpy as np\
+a= np.array([(1,2,3),(3,4,5)])\
+print(a.sum(axis=0))\
+print(a.sum(axis=1))\
+\
+NumPy Sorting Arrays\
+Sorting means putting elements in an ordered sequence. Ordered sequence is any sequence that has an order corresponding to elements, like numeric or alphabetical, ascending or descending.\
+\
+Numpy sort() function\
+It will return the sorted copy of the input ndarray in Numpy.\
+\
+Syntax:\
+numpy.sort(a, axis, kind=None, order=None)\
+a: array_like: It defines the source array, which is going to be sorted.\
+axis: int or None: It defines axis along which the sorting is performed. default -1\
+kind: quicksort, mergesort, heapsort\}(optional)\
+order: str or list of str(optional) When an array is defined with fields.\
+\
+Example:\
+import numpy as np\
+Arr = np.array([3, 2, 0, 1])\
+print(np.sort(Arr)) \
+\
+Example:\
+import numpy as np\
+Arr = np.array(['banana', 'cherry', 'apple'])\
+print(np.sort(Arr)) \
+\
+Example:\
+import numpy as np\
+Arr = np.array([True, False, True])\
+print(np.sort(Arr))\
+\
+Sorting a 2-D Array\
+If you use the sort() method on a 2-D array, both arrays will be sorted:\
+\
+Example:\
+import numpy as np\
+Arr = np.array([[3, 2, 4], [5, 0, 1]])\
+print(np.sort(Arr)) \
+\
+Python NumPy Advanced Sorting\
+Example:\
+import numpy as np \
+PyArr1 = np.array([[17, 15], [10, 25]]) \
+PyArr2 = np.sort(PyArr1)\
+print(PyArr2)\
+PyArr2 = np.sort(PyArr1, axis = -1)\
+print(PyArr2)\
+\
+Example:\
+import numpy as np \
+# sorting along the first axis\
+PyArr1 = np.array([[17, 15], [10, 25]]) \
+print(PyArr1)\
+PyArr2 = np.sort(PyArr1, axis = 0)\
+print(PyArr2)\
+PyArr3 = np.sort(PyArr1, axis = 1)\
+print(PyArr3)\
+\
+NOTE:0 means we have to check column wise,1 means we have to check rows wise.\
+\
+Example:\
+import numpy as np \
+PyArr1 = np.array([[199, 15], [20, 18]]) \
+print(PyArr1)\
+PyArr2= np.sort(PyArr1, axis = None) \
+print(PyArr2) \
+\
+Example:\
+import numpy as np\
+PyData = np.dtype([('name', 'S10'),('marks',int)])  \
+PyArr = np.array([('Mukesh',200),('John',251)],dtype = PyData)  \
+print(np.sort(PyArr,order = 'name'))\
+print(np.sort(PyArr,order = 'marks'))\
+\
+NumPy transpose() Method  \
+The main task of this function is to change the column elements into the row elements and the column elements into the row elements.\
+\
+NOTE:\
+This function has no effect on 1-D arrays and thus it is used for 2-D arrays.\
+\
+Syntax:\
+numpy.transpose(a, axes=None)\
+\
+Example:\
+import numpy as np \
+PyArr = np.array([[6, 2, 4], [8, 5, 6], [7, 1, 9]]) \
+print(PyArr) \
+print()\
+PyArr1=np.transpose(PyArr)\
+print(PyArr1) \
+\
+Example:\
+import numpy as np \
+PyArr= np.array([[6, 28], [8, 56], [7, 19]]) \
+print(PyArr) \
+PyArr1=np.transpose(PyArr,(0,1))\
+print(PyArr1) \
+PyArr1=np.transpose(PyArr,(1,0))\
+print(PyArr1) \
+\
+Example 2: Iterate over Transpose of array\
+import numpy as np  \
+PyArr = np.array([[11,2,3,4],[29,4,15,6],[11,21,39,31]])  \
+print(PyArr)  \
+PyIter = PyArr.T #transpose\
+print(PyIter)  \
+\
+\
+NumPy Filter Array\
+Filtering Arrays\
+Getting some elements out of an existing array and creating a new array out of them is called filtering. In NumPy, you filter an array using a Boolean index list. A Boolean index list is a list of Booleans corresponding to indexes in the array.\
+\
+Example:\
+import numpy as np\
+arr = np.array([41, 42, 43, 44])\
+x = [True, False, True, False]\
+newarr = arr[x]\
+print(newarr)\
+\
+NOTE: \
+The example above will return [41, 43], Because the new array contains only the values where the filter array had the value True, in this case, index 0 and 2.\
+\
+Creating the Filter Array\
+In the example above we hard-coded the True and False values, but the common use is to create a filter array based on conditions.\
+\
+Example:\
+import numpy as np\
+arr = np.array([41, 42, 43, 44])\
+# Create an empty list\
+filter_arr = []\
+# go through each element in arr\
+for element in arr:\
+  # if the element is higher than 42, set the value to True, otherwise False:\
+  if element > 42:\
+    filter_arr.append(True)\
+  else:\
+    filter_arr.append(False)\
+newarr = arr[filter_arr]\
+print(filter_arr)\
+print(newarr)\
+\
+Creating Filter Directly From Array\
+The above example is quite a common task in NumPy and NumPy provides a nice way to tackle it. We can directly substitute the array instead of the iterable variable in our condition and it will work just as we expect it to.\
+\
+Example:\
+import numpy as np\
+arr = np.array([41, 42, 43, 44])\
+filter_arr = arr > 42\
+newarr = arr[filter_arr]\
+print(filter_arr)\
+print(newarr)\
+\
+Example:\
+import numpy as np\
+arr = np.array([1, 2, 3, 4, 5, 6, 7])\
+filter_arr = arr % 2 == 0\
+newarr = arr[filter_arr]\
+print(filter_arr)\
+print(newarr)\
+\
+\
+\
+\
+\
+}

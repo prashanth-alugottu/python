@@ -1,0 +1,1046 @@
+WHY INHERITANCE(NEED OF REUSABILITY)
+Example:
+class Banking():
+    def Login(self):
+        print("LoginRequiredForBanking")
+        print("Thank U")
+class OnlineBanking():
+    def Login(self):
+        print("LoginRequiredForBanking")
+        print("Thank U")
+    def Online(self):
+        print("Welcome to Online Banking")
+        print("Secured Banking")
+class MobileBanking():
+    def Login(self):
+        print("LoginRequiredForBanking")
+        print("Thank U")
+    def MBanking(self):
+        print("Welcome to Touch Banking")
+        print("It is More Comfort and AnyWhere Banking")
+class PhoneBanking():
+    def Login(self):
+        print("LoginRequiredForBanking")
+        print("Thank U")
+    def PBanking(self):
+        print("Welcome to Phone Banking")
+        print("It is Only for Senior Citizens")
+        print("Thank U")
+
+#Creating Instance or Object
+PP=PhoneBanking()
+PP.Login()
+PP.PBanking()
+MM=MobileBanking()
+MM.Login()
+MM.MBanking()
+OO=OnlineBanking()
+OO.Login()
+OO.Online()
+
+===========================================================================================
+
+
+Example: UseCase-II
+class Animal():
+    def Eat(self):
+        print("All Animals are Eating")
+class Dog():
+    def Eat(self):
+        print("All Animals are Eating")
+    def Sound(self):
+        print("Barking........!!")
+class Cat():
+    def Eat(self):
+        print("All Animals are Eating")
+    def Sound(self):
+        print("Mewwwwwwwwww!!!")
+class Lion():
+    def Eat(self):
+        print("All Animals are Eating")
+    def Sound(self):
+        print("Roaring............!!")
+LL=Lion()
+LL.Eat()
+LL.Sound()
+CC=Cat()
+CC.Eat()
+CC.Sound()
+DD=Dog()
+DD.Eat()
+DD.Sound()
+
+===========================================================================================
+
+INHERITANCE:
+Reuse-Class Members-Attributes & Methods
+OR
+It is the process of inheriting the class members from one class to another class is called Inheritance.
+OR
+The concept of using properties of one class into another class without creating object of that class explicitly is known as inheritance.
+OR
+1 A class which is extended by another class is known as 'super class'.
+2 Both super class property and sub class property can be accessed through sublcass ref.variable
+
+Types of Inheritance(s):
+1. Single Level Inheritance
+2. Multilevel  Inheritance
+3. Multiple Inheritance
+4. Hierarchial  Inheritance
+5. Hybrid Inheritance
+6. Diamond Inheritance
+
+===========================================================================================
+
+Outline of Inheritance:
+BaseClass #Existing Class
+Feature1
+Feature2
+
+DerievedClass #NewlyCreatedClass
+Feature1
+Feature2
+Feature3
+
+===========================================================================================
+
+Terminology:
+Parent class ==> Base class ==>Super class
+Child class ==> Derived class==> Sub class
+
+===========================================================================================
+
+Single Level Inheritance:
+The concept of inheriting properties from only one class into another class is known as single level inheritance.
+
+Syntax:
+class name(superclass):
+   BlockOfStatements
+
+Syntax:
+class BaseClass:
+  Body of base class
+class DerivedClass(BaseClass):
+  Body of derived class
+
+===========================================================================================
+
+Example:
+class Pet:   
+    def eat(self):  
+      print('Eating...')
+
+class dog(Pet):
+    def bark(self):
+        print("barking")
+
+d=dog()  
+d.eat()  
+d.bark()
+
+===========================================================================================
+
+Example:
+class Animal():
+    def Eat(self):
+        print("Animal Eating...!!")
+class Dog():
+    def Sound(self):
+        print("Dog Barking..!!")
+
+D=Dog()
+D.Eat()
+D.Sound()
+
+O/P
+AttributeError: 'Dog' object has no attribute 'Eat'
+
+===========================================================================================
+
+Example:
+class Banker():
+    def Services(self):
+        print("Every Bank Provide Services to Customers")
+class Customer(Banker):
+    def Cust_Ser(self):
+        print("Customer using all services from Banker")
+CC=Customer()
+CC.Services()
+CC.Cust_Ser()
+
+===========================================================================================
+
+Example:
+class animal:   
+    def __init__(self,name):
+        self.name=name
+class dog(animal):
+    def display(self):
+        print(self.name)
+d=dog("Puppy")  
+d.display()  
+
+===========================================================================================
+
+RealTime Usecases for Single Level Inheritance:
+1. Student ==> Subject
+2. Subject ==> Result
+3. Bank ==> Customer
+4. Bank ==> Services
+5. Product ==> feedback
+
+===========================================================================================
+
+		==> Multilevel Inheritance
+You can inherit a derived class from another derived class. 
+OR
+Extending features from one derived class to another.
+
+Outline of Multilevel Inheritance:
+BaseClass #Existing Class
+Feature1
+
+DerievedClass1 #NewlyCreatedClass
+Features+BaseClass
+Feature2
+
+DerievedClass2 #NewlyCreatedClass
+Features+BaseClass
+Features+DereivedClass1
+Feature3
+
+===========================================================================================
+
+Syntax:
+class BaseClass:
+  Body of base class
+class DerivedClass1(BaseClass):
+  Body of derived class1
+class DerivedClass2(DereivedClass1):
+  Body of derived class2
+
+===========================================================================================
+
+Example:
+class Student():#Super Class
+    def getStudent(self):
+        self.name=input("Name: ")
+        self.age=int(input("Age: "))
+        self.gender=input("Gender: ")
+
+class Subjects(Student):#Derived Class-1
+    def getMarks(self):
+        self.StudentClass=input("Class: ")
+        print("Enter the marks of the respective subjects:")
+        self.Programming=int(input("Programming: "))
+        self.math=int(input("Math: "))
+        self.english=int(input("English: "))
+        self.physics=int(input("Physics: "))
+
+class Marks(Subjects):#Derived Class-2
+    def Display(self):
+        print("\n Name is: ",self.name)
+        print("Age is: ",self.age)
+        print("Gender is: ",self.gender)
+        print("Class Name: ",self.StudentClass)
+        print("Total Marks: ",self.Programming+self.math+self.english+self.physics)
+
+MM=Marks()
+MM.getStudent()
+MM.getMarks()
+MM.Display()
+
+===========================================================================================
+
+Example:
+class Finacial_Services_India():
+    def FSI(self):
+        print("All Permissions from here")
+        print("It is related Finance")
+class ReserveBankofIndia(Finacial_Services_India):
+    def RBI(self):
+        print("It is leading All Bankers in INDIA")
+        print("Thank u RBI")
+class Bankers_India(ReserveBankofIndia):
+    def Bank_INDIA(self):
+        print("Welcome to Indian Banks")
+        print("We are ready to serve")
+        print("We deal Finanacial Matters")
+BI=Bankers_India()
+BI.FSI()
+BI.RBI()
+BI.Bank_INDIA()
+
+===========================================================================================
+
+Example:
+class GrandFather():
+    def Hello_GFather(self):
+        print("I am in GrandFather Class")
+class Father(GrandFather):
+    def Hello_Father(self):
+        print("I am in Father Class")
+class Child(Father):
+    def Hello_Child(self):
+        print("I am in Child Class")
+      
+ch=Child()
+ch.Hello_GFather()
+ch.Hello_Father()
+ch.Hello_Child()
+
+===========================================================================================
+
+Example:
+class person():
+    def display(self):
+        print("Hello, This is class Person")
+class employee(person):
+    def printing(self):
+        print("Hello This is derieved class Employee")
+class programmer(employee):
+    def show(self):
+        print("Hello This is derieved class Programmer")
+
+p1=programmer()
+p1.display()
+p1.printing()
+p1.show()
+
+===========================================================================================
+
+Example:
+class Animal:   
+    def eat(self):  
+      print('Eating...')
+class Dog(Animal):  
+   def bark(self):  
+      print('Barking...')
+class BabyDog(Dog):  
+    def weep(self):  
+        print('Weeping...')
+d=BabyDog()  
+d.eat()  
+d.bark()  
+d.weep()  
+
+===========================================================================================
+
+LIVE USE CASES:
+Bank ==> Customer ==> CreditCard
+College ==> Course ==> Student
+Vehi ==> Car ==> SportsCar ==> Speed
+
+===========================================================================================
+
+		==> Multiple Inheritance:-
+You can derive a child class from more than one base (Parent) class.
+
+Outline of Multiple Inheritance:
+BaseClass1		BaseClass2
+
+	     DerievedClass
+
+===========================================================================================
+
+Syntax1:
+class DerivedClassName(Base1, Base2...BaseN):  
+    <statement-1>  
+   -------------------------
+    <statement-N> 
+
+===========================================================================================  
+
+Example:
+class First():
+    def A(self):
+        print("I am in First PClass")
+class Second():
+    def B(self):
+        print("I am in Second PClass")
+class Third(First,Second):
+    def C(self):
+        print("I am in Child Class")
+
+TT=Third()
+TT.A()
+TT.B()
+TT.C()
+
+===========================================================================================
+
+Python super() function:
+It always refer the immediate superclass.  It allows you to call methods of the superclass in your subclass. It  can refer the superclass implicitly. It eliminates the need to declare certain characteristics of a class.
+
+===========================================================================================
+
+In Python, super() built-in has two major use cases:
+1 Allows us to avoid using base class explicitly
+2 Working with Multiple Inheritance
+
+===========================================================================================
+
+Syntax:PY-3.x
+super().methoName(args)
+
+===========================================================================================
+
+Method Resolution Order (MRO)
+In the multiple inheritance scenario, any specified attribute is searched first in the current class. If not found, the search continues into parent classes in depth-first, left-right fashion without searching same class twice. MRO must prevent local precedence ordering and also provide monotonicity.
+
+===========================================================================================
+
+Example:
+class First():
+    def __init__(self):
+        print("init of First Class")
+    def A(self):
+        print("I am in First PClass")
+class Second():
+    def __init__(self):
+        print("init of Second Class")
+    def B(self):
+        print("I am in Second PClass")
+class Third(First,Second):
+    def __init__(self):
+        super().__init__()
+        print("init of Third Class")
+    def C(self):
+        print("I am in Child Class")
+
+TT=Third()
+print(Third.mro())
+
+===========================================================================================
+
+Method Resolution Order (MRO) is the order in which Python looks for a method in a hierarchy of classes. Especially it plays vital role in the context of multiple inheritance as single method may be found in multiple super classes.
+
+===========================================================================================
+
+CASE:1
+This is a simple case where we have class C derived from both A and B. When method process() is called with object of class C then process() method in class A is called.
+
+Example:
+class A:
+    def process(self):
+        print('A process()')
+
+class B:
+    pass
+
+class C(A, B):
+    pass
+
+obj = C()  
+obj.process()    
+print(C.mro()) 
+
+===========================================================================================
+
+Example2:Case-2
+class A:
+    def process(self):
+        print('A process()')
+
+
+class B:
+    def process(self):
+        print('B process()')
+
+class C(A, B):
+    pass
+
+obj = C()
+obj.process()
+
+===========================================================================================
+
+Case 3
+In this case, we create D from C and B. Classes C and B have process() method and as expected MRO chooses method from C. Remember it goes from left to right. So it searches C first and all its super classes of C and then B and all its super classes. 
+
+Example:
+class A:
+    def process(self):
+        print('A process()')
+class B:
+    def process(self):
+        print('B process()')
+class C(A, B):
+    def process(self):
+        print('C process()')
+class D(C,B):
+    pass
+
+obj = D()
+obj.process()
+print(D.mro())
+
+===========================================================================================
+
+Case 4
+Lets change the hierarchy. We create B and C from A and then D from B and C. Method process() is present in both A and C. 
+
+Example:
+class A:
+    def process(self):
+        print('A process()')
+
+class B(A):
+    pass
+
+class C(A):
+    def process(self):
+        print('C process()')
+
+class D(B,C):
+    pass
+
+obj = D()
+obj.process()
+
+===========================================================================================
+
+Case 5
+There are cases when Python cannot construct MRO owing to complexity of hierarchy.
+
+Example:
+class A:
+    def process(self):
+        print('A process()')
+
+class B(A):
+    def process(self):
+        print('B process()')
+
+class C(A, B):
+    pass
+
+obj = C()
+obj.process()
+
+NOTE: TypeError: Cannot create a consistent method resolution order (MRO) for bases A, B
+
+===========================================================================================
+
+Example:
+class Employee():
+    def Set1(self,empid,name,salary):
+        self.empid=empid
+        self.name=name
+        self.salary=salary
+
+class Fitness():
+    def Set2(self,height,weight, bloodGrp):
+        self.height=height
+        self.weight=weight
+        self.bloodGrp=bloodGrp
+        
+class Company(Employee,Fitness):
+    def Set3(self,Company,dep):
+        self.Company=Company
+        self.dep=dep
+
+    def Display(self):
+        print("ID is: ",self.empid)
+        print("Emp Name is: ",self.name)
+        print("Salary is: ",self.salary)
+        print("Height is: ",self.height)
+        print("Weight is: ",self.weight)
+        print("Blood Group is: ",self.bloodGrp)
+        print()
+        print("Company is: ",self.Company)
+        print("Department is: ",self.dep)
+
+CC=Company()
+print(Company.mro())
+CC.Set1(101,"Raju",70000)
+CC.Set2(145,50,"B-")
+CC.Set3("IBM","Software")    
+CC.Display()
+
+===========================================================================================
+
+Constructor or __init__  In Inheritance 
+Example:
+class First():
+    def __init__(self):
+        print("init of First Class")
+    def A(self):
+        print("I am in First PClass")
+class Second(First):
+    def B(self):
+        print("I am in Second PClass")
+class Third(Second):
+    def C(self):
+        print("I am in Child Class")
+
+FF=First()
+
+Example:
+class First():
+    def __init__(self):
+        print("init of First Class")
+    def A(self):
+        print("I am in First PClass")
+class Second(First):
+    def B(self):
+        print("I am in Second PClass")
+class Third(Second):
+    def C(self):
+        print("I am in Child Class")
+
+SS=Second()
+
+Example:
+class First():
+    def __init__(self):
+        print("init of First Class")
+    def A(self):
+        print("I am in First PClass")
+class Second(First):
+    def B(self):
+        print("I am in Second PClass")
+class Third(Second):
+    def C(self):
+        print("I am in Child Class")
+
+TT=Third()
+
+Example:The priority for its own class
+class First():
+    def __init__(self):
+        print("init of First Class")
+    def A(self):
+        print("I am in First PClass")
+class Second(First):
+    def __init__(self):
+        print("init of Second Class")
+    def B(self):
+        print("I am in Second PClass")
+class Third(Second):
+    def C(self):
+        print("I am in Child Class")
+
+SS=Second()
+===========================================================================================
+
+Example: If you want to execute both __init__ classes,super() function required
+class First():
+    def __init__(self):
+        print("init of First Class")
+    def A(self):
+        print("I am in First PClass")
+class Second(First):
+    def __init__(self):
+        super().__init__()
+        print("init of Second Class")
+    def B(self):
+        print("I am in Second PClass")
+class Third(Second):
+    def C(self):
+        print("I am in Child Class")
+
+SS=Second()
+===========================================================================================
+
+Hierarchical Inheritance:-   
+The concept of inheriting properties from one class into multiple classes is known as a hierarchical inheritance
+
+===========================================================================================
+
+Syntax:
+class A:
+  pass
+class B(A):
+  pass
+class C(A):
+  pass
+
+===========================================================================================
+
+Example:
+class Details():
+    def __init__(self):
+        self.Id=""
+        self.Name=""
+    def SetData(self,Id,Name):
+        self.Id=Id
+        self.Name=Name
+    def ShowData(self):
+        print("ID: ",self.Id)
+        print("Name: ",self.Name)
+
+class Employee(Details):
+    def __init__(self):
+        self.Company=""
+        self.Dept=""
+    def SetEmployee(self,Id,Name,Comp,Dept):
+        self.SetData(Id,Name)
+        self.Company=Comp
+        self.Dept=Dept
+    def ShowEmployee(self):
+        self.ShowData()
+        print("Company: ",self.Company)
+        print("Department: ",self.Dept)
+
+class Doctor(Details):
+    def __init__(self):
+        self.Hospital=""
+        self.Dept=""
+    def SetEmployee(self,Id,Name,Hos,Dept):
+        self.SetData(Id,Name)
+        self.Hospital=Hos
+        self.Dept=Dept
+    def ShowEmployee(self):
+        self.ShowData()
+        print("Hospital: ",self.Hospital)
+        print("Department: ",self.Dept)
+
+print("Employee Class Object")
+EE=Employee()
+EE.SetEmployee(101,"Raju","TCS","IT")
+EE.ShowEmployee()
+
+print("\n Doctor Class Object: ")
+DD=Doctor()
+DD.SetEmployee(101,'RaviKumar',"Prime","Dental")
+DD.ShowEmployee()
+
+===========================================================================================
+
+Example:
+class Banker():
+    def Bank_Services(self):
+        print("Welcome to Banking Services")
+class EBanking(Banker):
+    def Email(self):
+        print("Welcome to Email Banking")
+class Banking_Mobile(Banker):
+    def Mobile(self):
+        print("Welcome to Mobile Banking")
+class Banking_Phone(Banker):
+    def Phone(self):
+        print("Welcome to Phone Banking")
+BP=Banking_Phone()
+BP.Bank_Services()
+BP.Phone()
+BM=Banking_Mobile()
+BM.Bank_Services()
+BM.Mobile()
+BE=EBanking()
+BE.Bank_Services()
+BE.Email()
+
+===========================================================================================
+
+Example:
+class Hello():
+  def MyOne(self):
+      print("I am in Hello Class")
+class Hei(Hello):
+  def MyTwo(self):
+    print("I am in Hei Class")
+class Bye(Hello):
+  def MyThree(self):
+    print("I am, in Bye Class")
+
+HH=Hei()
+HH.MyOne()
+HH.MyTwo()
+BB=Bye()
+BB.MyOne()
+BB.MyThree()
+
+===========================================================================================
+
+Example:
+class Animal():
+  def __init__(self,name):
+    self.name=name
+  def talk(self):
+    pass
+  
+class Cat(Animal):
+  def talk(self):
+    print("Cat is MewMewMewMewMewMew..!!")
+
+class Dog(Animal):
+  def talk(self):
+    print("Dog is Barkingngngngngngngng..!!")
+
+a=Animal('Sound')
+c=Cat("KITTY")
+c.talk()
+
+d=Dog("TOMMY")
+d.talk()
+
+===========================================================================================
+
+LIVE USE CASE
+Library ==> Students ==> Faculty ==> Management ==>SrCitizen
+ShowDetails==> Student ==> Faculty ==> Management==> SrCitizen
+
+===========================================================================================
+
+Polymorphism:-  (Many Forms or Shapes)
+It is an ability of an object to adopt the code to the type of the data processing.
+OR
+It refers to the use of a single type entity (Method, Operator, Object) to represent different types and different scenarios
+OR
+Implementing same thing  in different ways or forms
+
+Example:
+Area of Polygon ==> Square, Rectangle, Triangle
+
+Points to Remember:
+1 Poly means many and morphism means forms
+2 Forms means functionalities or logics.
+3 The concept of defining multiple logics to perform same operation is known as a polymorphism.
+4 Python is implicitly  polymorphic
+
+===========================================================================================
+
+Example:
+A=5; B=6
+print(A+B)
+
+A="Hello";B="PYTHON"
+print(A+B)
+
+NOTE:
+In the above example A, B are Over-ridden, + is Overloaded.
+
+===========================================================================================
+Example: 
+Using The Same membership operator checking the variable existed in Data Structures.
+print('x' in {'a','b','c','x'})
+print('x' in ['a','b','c','x'])
+print('x' in ('a','b','c','x'))
+print('x' in {'a':'b','x':'c'})
+
+Example:
+
+print(len('PYTHON'))
+print(len(list(range(1,25,3))))
+
+NOTE: 
+len function is polymorphism because the same function taking different inputs.
+===========================================================================================
+
+Polymorphism different forms:
+Dynamic/RunTime Polymorphism(Overriding)
+i) Method overriding
+ii) Constructor overriding
+
+
+Static Polymorphism/CompileTime Polymorphism (Overloading)
+i) Method Overloading
+ii) Constructor Overloading
+iii) Operator Overloading
+
+Dynamic/Run Time Polymorphism: Method overriding 
+Through method overriding a class may "copy" another class, avoiding duplicated code, and at the same time enhance or customize part of it.
+OR
+It is the ability of a class to change the implementation of method provided by one of its ancestors.
+
+===========================================================================================
+
+Example:
+class A():
+    def display(self):
+        print("Method belongs to Class A")
+class B(A):
+    pass
+
+b1=B()
+b1.display()
+
+Example:
+class A():
+    def display(self):
+        print("Method belongs to Class A")
+class B(A):
+    def display(self):
+        print("Method belongs to Class B")
+
+b1=B()
+b1.display()
+
+Example:
+class ParentClass():
+    def Transport(self):
+        print("CYCLE")
+class ChildClass(ParentClass):
+    def Transport(self):
+        print("BIKE")
+class GrandChildClass(ChildClass):
+    def Transport(self):
+        print("CAR")
+
+GG=GrandChildClass()
+GG.Transport()
+
+===========================================================================================
+Example:
+class Father():
+    def Fname(self):
+        print("FatherFirstName")
+    def Lname(self):
+        print("FatherLastName")
+class Son(Father):
+    def Fname(self):
+        print("SonFirstName")
+
+ObjSon=Son()
+ObjSon.Fname()
+ObjSon.Lname()
+
+===========================================================================================
+NOTE:
+If method names are different, It never satisfy method overriding concept.
+
+Example:
+class Person():
+    def __init__(self,name,age):
+        self.name=name
+        self.age=age
+    
+    def DisplayData(self):#OverriddenMethod
+        print("Parent Class Method")
+        print("Name is: ",self.name)
+        print("Age is: ",self.age)
+
+class Employee(Person):
+    def __init__(self,name,age,Id):
+        super().__init__(name,age)
+        self.empID=Id
+    
+    def DisplayData(self):#OverriddenMethod
+        print("Employee Class Display-Data Method")
+        print("Name is: ",self.name)
+        print("Age is: ",self.age)
+        print("Emp ID is: ",self.empID)
+        
+class Developer(Employee):
+    def __init__(self,name,age,Id,Exp):
+        super().__init__(name,age,Id)
+        self.Exp=Exp
+    
+    def DisplayData(self):#OverriddenMethod
+        print("Developer Class Display-Data Method")
+        print("Name is: ",self.name)
+        print("Age is: ",self.age)
+        print("Emp ID is: ",self.empID)
+        print("Exp is: ",self.Exp)
+
+#Person Class Insatnce or Object
+PP=Person("Rama",45)
+PP.DisplayData()
+print()
+#Employee Class Instance or Object
+EE=Employee("Rama",45,101)
+EE.DisplayData()
+print()
+#Developer Class Instance or Object
+Dev=Developer("Rama",45,"101","5 Yrs")
+Dev.DisplayData()
+
+===========================================================================================
+
+Constructor Overriding:
+Example:
+class PConstructor():
+    def __init__(self):
+        print('Welcome to Main Constructor')
+class CContstructor(PConstructor):
+    def __init__(self):
+        print('Good Bye Sub Constructor')
+
+#Creating Instance
+HelloCons=CContstructor()
+
+===========================================================================================
+
+NOTE:
+If child class does not contain constructor then parent class constructor will be executed
+
+Example:
+class PConstructor():
+    def __init__(self):
+        print('Welcome To Main Constructor')
+class CContstructor(PConstructor):
+    pass
+
+#Creating Instance
+HelloCons=CContstructor()
+
+Static Polymorphism: Method & Constructor Overloading:
+PYTHON does not supports Method Overloading & Constructor Overloading, It is dynamically typed language. If we are trying to declare multiple methods with same name and different number of arguments then Python will always consider only last method.
+
+Example:
+class CalCulate():#Debug starts from here
+    def add(self,a,b):
+        return a+b
+    def add(self,a,b,c):
+        return a+b+c
+obj=CalCulate()
+print(obj.add(3,1))
+print(obj.add(3,1,3))
+
+NOTE:
+TypeError: add() missing 1 required positional argument: 'c'
+NOTE:
+In Python it always calls latest implemention  of the method
+
+Example: We can achieve through default arguments.!
+class MethodOverLoading():
+    def Total(self,a,b,c=0,d=0):
+        Sum=a+b+c+d
+        return Sum
+
+MOL=MethodOverLoading()
+Tot1=MOL.Total(7,8)
+print(Tot1)
+
+Tot2=MOL.Total(7,8,9)
+print(Tot2)
+
+Tot3=MOL.Total(7,8,9,10)
+print(Tot3)
+
+Constructor Overloading
+It is not possible in Python. If we define multiple constructors then the last constructor will be considered.
+
+Example:
+class Constructor1():
+    def __init__(self):
+        print('Welcome to Constructor1')
+    def __init__(self):
+        print('Welcome To Constructor2')
+
+#Creating Object    
+CC=Constructor1()
+
+Example:
+class Constructor1():
+    def __init__(self,x):
+        print('Welcome to Constructor1')
+    def __init__(self,x,y):
+        print('Welcome To Constructor2')
+
+#Creating Object    
+CC=Constructor1(1)
+
+NOTE: 
+TypeError: __init__() missing 1 required positional argument: 'y'
+
+Example:
+class Constructor1():
+    def __init__(self,x):
+        print('Welcome to Constructor1')
+    def __init__(self,x,y):
+        print('Welcome To Constructor2')
+
+#Creating Object    
+CC=Constructor1(1,2)

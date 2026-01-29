@@ -1,0 +1,613 @@
+Python Libraries:
+A Python library is a reusable chunk of code that you may want to include in your programs/ projects. A  library is a collection of modules.
+
+Python Libs:
+1 NumPy: 
+It is widely used for carrying out mathematical operations that involve matrices.
+
+2  Pandas(PANel Data System)
+It is an open-source Python Library for Data Analysis, Data Manipulation and Data Visualization. 
+
+3 Matplotlib
+It is a plotting library for the Python programming language and its numerical mathematics extension NumPy.
+
+4. Seaborn 
+It is a library for making statistical graphics in Python. It builds on top of matplotlib and integrates closely with pandas data structures. Seaborn helps you explore and understand your data.
+
+5.  Scikit-Learn 
+It is also known as sklearn is a python library to implement machine learning models and statistical modelling. 
+
+
+EXAMPLE:
+import scipy
+import pandas
+import numpy
+import sklearn
+import seaborn
+print(scipy.__version__)
+print(pandas.__version__)
+print(sklearn.__version__)
+print(numpy.__version__)
+print(seaborn.__version__)
+
+NumPy-Introduction
+It stands for NUMeric PYthon or NUMerical PYthon. It is the core library for scientific computing in Python.It was developed in 1995 by Travis Oliphant
+OR
+It is the fundamental library for array computing with Python
+OR
+NumPy is a Python library. NumPy is used for working with arrays. NumPy is short for "Numerical Python".
+
+Features of Numpy
+1 Multidimensional arrays.
+2 Functions and operators for these arrays.
+3 Python Alternative to MATLAB.
+4 ndarray- n-dimensional arrays.
+5 Linear algebra and random number generation.
+
+Install NumPy
+Windows & Mac OS:
+$pip install numpy
+
+Linux OS:
+$sudo apt-get install python-numpy
+
+=======================================================
+
+Why is NumPy Faster Than Lists?
+--> NumPy arrays are stored at one continuous place in memory unlike lists, so processes can access and manipulate them 	very efficiently. This behavior is called locality of reference in computer science.
+	This is the main reason why NumPy is faster than lists. Also it is optimized to work with latest CPU architectures.
+
+=======================================================
+
+NumPy Array v/s List
+We use python numpy array instead of a list because of the below three reasons:
+1    Less Memory
+2    Fast
+3    Convenient
+
+=======================================================
+
+NUMPY 
+==> 32 Bit, 
+	5 ==> 00000000 00000000 00000000 0000 0101
+
+==> 	16 Bit
+	5 ==> 00000000 0000 0101
+	
+==> 	8 Bit
+	5 ==> 0000 0101
+
+=======================================================
+
+List: It is builtin type in PYTHNON: It represents the following:
+Size
+00000000 00000000 00000000 0001110
+
+Reference Count
+01010101 1001010 01000110 10011000 00001100 11000011 00000000 0000 0101
+
+Object Type
+11001010 10011110 01100001 01000100 11111100 00100011 00011100 00111101
+
+Object Value
+00000000 00000000 00000000 00000000 00000000 00000000 00000000 0000 0101
+
+=======================================================
+
+Example:
+import numpy as np
+PyArr=np.array([2,4,5,6,7,8])
+print(PyArr)
+print(PyArr/2)
+
+Example:
+PyList=[2,4,5,6,7,8]
+print(PyList)
+print(PyList/2)
+
+Example:
+import numpy as np
+print(dir(np))
+
+Example:
+import numpy as np
+PyArr=np.array([2,4,5,6,7,8])
+print(help(np.array))
+
+=======================================================
+
+NumPy Creating Arrays
+
+Create a NumPy ndarray Object
+--> Numpy array is a powerful N-dimensional array object which is in the form of rows and columns. We can initialize 		numpy arrays from nested Python lists and access it elements.
+
+Syntax:
+numpy.array(object, dtype = None, copy = True, order = None, subok = False, ndmin = 0)
+
+=======================================================
+
+Import NumPy
+Once NumPy is installed, import it in your applications by adding the import keyword:
+import numpy ==> Now NumPy is imported and ready to use.
+
+Example
+import numpy
+PyArr = numpy.array([1, 2, 3, 4, 5])
+print(PyArr)
+print(type(PyArr))
+=======================================================
+
+NumPy as np=> NumPy is usually imported under the np alias.
+Create an alias with the as keyword while importing:
+import numpy as np => Now the NumPy package can be referred to as np instead of numpy.
+
+Example:
+import numpy as np
+PyArr = np.array([1, 2, 3, 4, 5])
+print(PyArr)
+
+=======================================================
+
+Dimensions in Arrays:
+A dimension in arrays is one level of array depth (nested arrays).
+nested array: are arrays that have arrays as their elements.
+
+0-D Arrays
+0-D arrays, or Scalars, are the elements in an array. Each value in an array is a 0-D array.
+
+Example
+import numpy as np
+PyArr = np.array(24)
+print(PyArr) 
+
+=======================================================
+
+1-D Arrays
+These are basic and most common arrays. It is an array that is having 0-D arrays as its elements and thus is called as a uni-dimensional or 1-D array. A 1D array is a vector; its shape is just the number of components.
+
+Example: Single Dimension Array
+
+import numpy as np
+PyArr=np.array([1,2,3,4])
+print(type(PyArr))#<class 'numpy.ndarray'>
+print(PyArr)#[1 2 3 4]
+
+=======================================================
+
+Example:
+import numpy as np
+PyArr=np.array((1,2,3,4))
+print(type(PyArr))#<class 'numpy.ndarray'>
+print(PyArr)#[1 2 3 4]
+
+=======================================================
+
+2-D arrays
+These are those arrays that contain 1-D arrays as its elements are called as 2-D arrays. 2-D arrays are often used to represent a matrix. It is a matrix; its shape is (number of rows, number of columns).
+Example:
+import numpy as np
+PyArr=np.array([[1,2,3,4],[5,6,7,8]])
+print(type(PyArr))#<class 'numpy.ndarray'>
+print(PyArr)
+
+O/P:
+[[1 2 3 4]
+ [5 6 7 8]]
+
+=======================================================
+
+Example:
+import numpy as np 
+PyArr = np.array([[1, 2], [3, 4]]) 
+print(PyArr)
+
+O/P:
+[[1 2]
+ [3 4]]
+=======================================================
+
+3-D arrays
+An array that has 2-D arrays (matrices) as its elements is called 3-D array. These are often used to represent a 3rd order tensor.
+Example:
+import numpy as np
+PyArr = np.array([[[1, 2, 3], [4, 5, 6]], [[1, 2, 3], [4, 5, 6]]])
+print(PyArr) 
+
+Checking the Number of Dimensions of Array:
+ndim:
+You can find the dimension of the array, whether it is a two-dimensional array or a single dimensional array. 
+=======================================================
+
+Example:
+import numpy as np
+PyArr = np.array([1,2,3])
+print(PyArr.ndim)
+
+NOTE: The output is 1, it is a Single-dimensional array (one dimension).
+
+Example:
+import numpy as np
+PyArr = np.array([(1,2,3),(4,5,6)])
+print(PyArr.ndim)
+
+NOTE: The output is 2, it is a two-dimensional array (multi dimension).
+
+Example:
+import numpy as np
+PyArr = np.array([[(1,2,3),(4,5,6),(7,8,9),(10,11,12)]])
+print(PyArr.ndim)
+
+NOTE: The output is 3, it is a three-dimensional array (multi dimension).
+
+=======================================================
+
+Example:
+import numpy as np
+PyArr1 = np.array(4)
+PyArr2 = np.array([1, 2, 3, 4, 5])
+PyArr3 = np.array([[1, 2, 3], [4, 5, 6]])
+PyArr4 = np.array([[[1, 2, 3], [4, 5, 6]], [[1, 2, 3], [4, 5, 6]]])
+print(PyArr1.ndim)
+print(PyArr2.ndim)
+print(PyArr3.ndim)
+print(PyArr4.ndim) 
+
+=======================================================
+
+Example:
+import numpy as np
+# 0-d array
+PyArr1 = np.array(4)
+# 1-d array
+PyArr2 = np.array([1, 2, 3])
+# 2-d array
+PyArr3 = np.array([[11, 62, 3], [46,95,96]])
+# 3-d array
+PyArr4 = np.array([[[11, 2, 3], [48,85, 6]], [[17,78,78], [44,95, 6]]])
+print(PyArr1.ndim)
+print(PyArr2.ndim)
+print(PyArr3.ndim)
+print(PyArr4.ndim)
+
+Higher Dimensional Arrays
+An array can have any number of dimensions. You can define the number of dimensions by using the ndmin argument.
+
+=======================================================
+
+Example:
+import numpy as np
+PyArr = np.array([1, 2, 3, 4], ndmin=5)
+print(PyArr)
+print('number of dimensions :', PyArr.ndim) 
+
+3. NumPy Array Indexing: Access Array Elements
+Array indexing is the same as accessing an array element.
+You can access an array element by referring to its index number.
+The indexes in NumPy arrays start with 0, meaning that the first element has index 0, and the second has index 1 etc.
+
+Example:
+import numpy as np
+arr = np.array([1, 2, 3, 4])
+print(arr[0])
+print(arr[1])
+print(arr[2] + arr[3])
+
+=======================================================
+
+Access 2-D Arrays
+To access elements from 2-D arrays we can use comma separated integers representing the dimension and the index of the element. Think of 2-D arrays like a table with rows and columns, where the dimension represents the row and the index represents the column.
+
+Example:
+import numpy as np
+arr = np.array([[1,2,3,4,5], [6,7,8,9,10]])
+print('2nd element on 1st row: ', arr[0, 1])
+print('5th element on 2nd row: ', arr[1, 4])
+
+=======================================================
+
+Access 3-D Arrays
+To access elements from 3-D arrays we can use comma separated integers representing the dimensions and the index of the element.
+
+Example:
+import numpy as np
+arr = np.array([[[1, 2, 3], [4, 5, 6]], [[7, 8, 9], [10, 11, 12]]])
+print(arr[0, 1, 2])
+
+Example Explained
+arr[0, 1, 2] prints the value 6.
+
+And this is why:
+
+The first number represents the first dimension, which contains two arrays:
+[[1, 2, 3], [4, 5, 6]]
+and:
+[[7, 8, 9], [10, 11, 12]]
+Since we selected 0, we are left with the first array:
+[[1, 2, 3], [4, 5, 6]]
+
+The second number represents the second dimension, which also contains two arrays:
+[1, 2, 3]
+and:
+[4, 5, 6]
+Since we selected 1, we are left with the second array:
+[4, 5, 6]
+
+The third number represents the third dimension, which contains three values:
+4
+5
+6
+Since we selected 2, we end up with the third value:
+6
+
+=======================================================
+
+Negative Indexing
+Use negative indexing to access an array from the end.
+
+Example:
+import numpy as np
+arr = np.array([[1,2,3,4,5], [6,7,8,9,10]])
+print('Last element from 2nd dim: ', arr[1, -1])
+
+=======================================================
+
+NumPy Array Slicing: Slicing arrays
+Slicing in python means taking elements from one given index to another given index.
+We pass slice instead of index like this: [start:end].
+We can also define the step, like this: [start:end:step].
+If we don't pass start its considered 0
+If we don't pass end its considered length of array in that dimension
+If we don't pass step its considered 1
+
+=======================================================
+
+Example:
+import numpy as np
+arr = np.array([1, 2, 3, 4, 5, 6, 7])
+print(arr[1:5])
+
+Note: The result includes the start index, but excludes the end index.
+
+Example:
+import numpy as np
+arr = np.array([1, 2, 3, 4, 5, 6, 7])
+print(arr[4:])
+
+Example:
+import numpy as np
+arr = np.array([1, 2, 3, 4, 5, 6, 7])
+print(arr[:4])
+
+=======================================================
+
+NumPy Data Types
+By default Python have these data types:
+strings - used to represent text data, the text is given under quote marks. e.g. "ABCD"
+integer - used to represent integer numbers. e.g. -1, -2, -3
+float - used to represent real numbers. e.g. 1.2, 42.42
+Boolean - used to represent True or False.
+complex - used to represent complex numbers. e.g. 1.0 + 2.0j, 1.5 + 2.5j
+
+=======================================================
+
+Data Types in NumPy
+NumPy has some extra data types, and refer to data types with one character, like i for integers, u for unsigned integers etc. Below is a list of all data types in NumPy and the characters used to represent them.
+i - integer
+b - boolean
+u - unsigned integer
+f - float
+c - complex float
+m - timedelta
+M - datetime
+O - object
+S - string
+U - unicode string
+V - fixed chunk of memory for other type ( void )
+
+=======================================================
+
+Checking the Data Type of an Array:
+dtype:
+You can find the data type of the elements that are stored in an array
+
+Example:
+import numpy as np
+PyArr = np.array([1, 2, 3, 4])
+print(PyArr.dtype) 
+
+Example:
+import numpy as np
+PyArr = np.array(['1', '2', '3', '4'])
+print(PyArr.dtype) #<U1
+
+Example:
+import numpy as np
+PyArr = np.array(['11', '21', '13', '14'])
+print(PyArr.dtype) #<U2
+
+Example:
+import numpy as np
+PyArr = np.array(['Data', 'BigData', 'Hadoop'])
+print(PyArr.dtype) #U7(7 bytes)
+
+Example:
+import numpy as np
+PyArr = np.array([(1,2,3)])
+print(PyArr.dtype)
+
+Example:size Attribute:
+import numpy as np
+PyArr = np.array([1,2,3,4,5])
+print(PyArr.size)
+
+Creating Arrays With a Defined Data Type
+dtype that allows us to define the expected data type of the array elements
+
+Example:
+import numpy as np
+PyArr = np.array([1, 2, 3, 4], dtype='S')
+print(PyArr)
+print(PyArr.dtype) 
+
+NOTE: For i, u, f, S and U we can define size as well. Here 'b' represents bytes string.
+
+Example:
+import numpy as np
+PyArr = np.array([1, 2, 3, 4], dtype=complex)
+print(PyArr)
+print(PyArr.dtype) 
+
+Example:  Create an array with data type 4 bytes integer:
+import numpy as np
+PyArr = np.array([1, 2, 3, 4], dtype='i4')
+print(PyArr)
+print(PyArr.dtype) 
+
+=======================================================
+
+What if a Value Can Not Be Converted?
+If a type is given in which elements can't be casted then NumPy will raise a ValueError.
+
+NOTE:
+1 A non integer string like 'a' can not be converted to integer (will raise an error):
+2. ValueError: In Python ValueError is raised when the type of passed argument to a function is unexpected/incorrect.
+
+Example:
+import numpy as np
+PyArr = np.array(['a', '2', '3'], dtype='i') 
+print(PyArr)
+
+=======================================================
+
+Converting Data Type on Existing Arrays
+The best way to change the data type of an existing array, is to make a copy of the array with the astype() method. It creates a copy of the array, and allows you to specify the data type as a parameter. The data type can be specified using a string, like 'f' for float, 'i' for integer etc. or you can use the data type directly like float for float and int for integer.
+
+astype() method:
+Converting Data Type on Existing Arrays.
+
+Syntax:
+astype(datatype)
+=======================================================
+
+Example:
+import numpy as np
+PyArr = np.array([1.1, 2.1, 3.1])
+NewArr = PyArr.astype('i')
+print(NewArr)
+print(NewArr.dtype) 
+
+=======================================================
+
+Example
+Change data type from float to integer by using int as parameter value:
+
+Example:
+import numpy as np
+PyArr = np.array([1.1, 2.1, 3.1])
+NewArr = PyArr.astype(int)
+print(NewArr)
+print(NewArr.dtype) 
+
+=======================================================
+
+Example:
+import numpy as np
+PyArr = np.array([1, 0, 3])
+NewArr = PyArr.astype(bool)
+print(NewArr)
+print(NewArr.dtype) 
+
+=======================================================
+
+Example:
+import numpy as np
+PyArr= np.array([1.1, 2.1, 3.1])
+NewArr = PyArr.astype(int)
+print(NewArr)
+print(NewArr.dtype)
+
+=======================================================
+
+itemsize:
+You can calculate the byte size of each element.
+
+Example:
+import numpy as np
+PyArr = np.array([1,2,3])
+print(PyArr.itemsize)
+
+NOTE:  Every int element occupies 4 byte in the above numpy array.
+
+=======================================================
+
+Python NumPy Array Creation - Empty, Zeroes and Ones
+In Numpy, a new ndarray object can be constructed by the following given array creation routines or using a low-level ndarray constructor
+1    numpy.empty
+2    numpy.zeroes
+3    numpy.ones
+4.   numpy.full
+
+=======================================================
+numpy.empty: 
+This is used to create an uninitialized array of specified shape and dtype. Elements in an array will show random values because they are not initialized.
+
+Syntax:
+numpy.empty(shape, dtype)  
+
+=======================================================
+
+Example:
+import numpy as np 
+# an array with 4 rows and 3 columns
+PyArr = np.empty([4,3], dtype = int) 
+print (PyArr)
+
+=======================================================
+
+Zero Value Array - Using numpy.zeroes
+This is used to return a new array of the specified size and each array item will be initialized with 0.
+
+Syntax:
+numpy.zeros(shape, dtype)  
+
+Example:
+import numpy as np  
+PyArr = np.zeros((3,3), dtype = int)  
+print(PyArr)  
+
+=======================================================
+
+One Value Array - Using numpy.ones
+This is used to return a new array of the specified size and each array item will be initialized as 1.
+
+Syntax:
+numpy.ones(shape, dtype)
+
+Example:
+import numpy as np  
+PyArr = np.ones((3,3), dtype = int)  
+print(PyArr)  
+
+=======================================================
+
+numpy.full():
+Return a new array with the same shape and type as a given array filled with a fill_value.
+
+Syntax:
+numpy.full(shape, fill_value, dtype = None) 
+
+=======================================================
+
+Parameters:
+shape      : Number of rows
+fill_value : [bool, optional] Value to fill in the array.
+dtype      : [optional, float(by Default)] Data type of returned array.  
+
+=======================================================
+
+Example:
+import numpy as np
+PyArr = np.full([2, 2], 67, dtype = int)
+print("\nMatrix a : \n", PyArr)
+PyArr = np.full([3, 3], 10.1)
+print("\nMatrix c : \n", PyArr)
