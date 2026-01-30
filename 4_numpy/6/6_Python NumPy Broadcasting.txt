@@ -1,0 +1,262 @@
+Python NumPy Broadcasting
+In Numpy, the term broadcasting refers to how Numpy handles array of different dimensions while performing 
+any arithmetic operation. 
+In broadcasting, Numpy generally broadcasts the smaller array across the larger array in order to have 
+compatible shapes.
+
+Rules for NumPy Broadcasting:
+1 The smaller dimension ndarray can be appended with '1' in its shape.
+2 The size of each output dimension should be the maximum of the input sizes in the dimension.
+3 It is important to note that input can be used in the calculation only if its size in a particular 
+dimension matches the output size or its value is exactly 1.
+
+Example 1: Adding two 1-d Arrays of the same shape
+import numpy as np
+PyArr1 = np.array([1,2,3,4])
+PyArr2 = np.array([2,7,8,9])
+PyArr3 = PyArr1+PyArr2;
+print(PyArr3)
+
+Example 2: Adding two 1-d Arrays of different shape
+import numpy as np  
+PyArr1 = np.array([4,5,6,7])  
+PyArr2 = np.array([1,3,5,7,9,11,14])  
+PyArr3 = PyArr1+PyArr2;  
+print(PyArr3) 
+
+ValueError: operands could not be broadcast together with shapes (4,) (7,) 
+
+Example:
+import numpy as np
+PyArr1=np.array([[0],[10],[20],[30]])
+print(PyArr1)
+PyArr2=np.array([0,1,2])
+print(PyArr2)
+print(PyArr1+PyArr2)
+print(PyArr1-PyArr2)
+print(PyArr1*PyArr2)
+
+Example:
+import numpy as np  
+PyArr1 = np.array([[1,2,3,4],[11,10,8,6],[10,20,39,3]])  
+PyArr2 = np.array([4,8,10,12])
+PyArr3 = PyArr1 + PyArr2;
+print(PyArr3)
+
+
+Python NumPy Copy and View
+The major difference between copy and view is that the copy() function creates a new array whereas
+the view() function creates a new view of the original array.
+It is important to note here that physically the copy of an input array is stored at some other location 
+whereas in the case of view, the different view of the same memory location is returned.
+
+NOTE:
+In layman terms it can be said that the copy is just physically stored at another location and 
+view has the same memory location as the original array but a different represenation.
+
+No Copy or Array Assignment
+If you make the assignment of a numpy array to another then it does not create a direct copy of the original array, rather it makes another array having same content and same id. Thus it becomes the reference to the original array. If you will majke any changes to this reference array then these changes are directly reflected in the original array.
+
+Example:
+import numpy as np  
+PyArr= np.array([[5,2,7,4],[9,0,2,3],[1,2,3,19]])  
+print(PyArr)  
+PyArr1 = PyArr
+print(id(PyArr))  
+print(id(PyArr1))  
+PyArr1.shape = 4,3
+print(PyArr)
+
+Numpy Copy or Deep Copy
+The copy of any array is basically a new array and when we create a copy using the copy() function 
+it is also known as Deep Copy. So whenever we will make any changes to the copy then it will not affect 
+the original array Likewise, when changes are made to the original array then it does not affect the copy.
+
+Syntax:
+numpy.ndarray.copy()
+
+Example:
+import numpy as np 
+PyArr = np.array([5, 4, 6, 8, 9]) 
+print(PyArr) 
+PyCopy = PyArr.copy() 
+print(PyCopy)
+print(id(PyArr)) 
+print(id(PyCopy)) 
+PyArr[0] = 25
+print(PyArr) 
+print(PyCopy)
+
+Numpy View or Shallow Copy
+The view is only just a view of the original array. When we create a view of any given array it is also 
+known as the Shallow Copy. It implies that if we make any changes to the view then it affects the 
+original array similarly when we make changes to the original array then it affects the view.
+
+Syntax:
+ndarray.view()
+
+Example:
+import numpy as np 
+PyArr=np.array([2, 4, 6, 8, 10,12]) 
+print(PyArr)
+PyView = PyArr.view() 
+print(id(PyArr)) 
+print(id(PyView)) 
+PyArr[3] = 16
+print(PyArr) 
+print(PyView) 
+
+Numpy Array Broadcasting Iteration
+In case if two arrays are broadcastable then a combined nditer object is able to iterate upon them 
+concurrently. Assuming that an array x has dimension 3x4, and there is another array y of dimension 1x4, 
+then we use the broadcasting iterator (array b is broadcast to size of a)
+
+Example:
+import numpy as np 
+PyArr1 = np.arange(0,60,5) 
+PyArr1 = PyArr1.reshape(3,4) 
+print (PyArr1)
+print ()
+
+PyArr2 = np.array([1, 2, 3, 4], dtype = int) 
+print (PyArr2)  
+print ()
+
+for x,y in np.nditer([PyArr1,PyArr2]): 
+    print ("%d:%d" %(x,y))
+
+Modifying the values of an Array
+Another optional parameter of the nditer object is called as op_flags. The default value of this parameter 
+is read-only but it can also be set to "read-write" or "write-only" mode. With the help of this, 
+you are able to easily modify the values of all or some of the elements in the array using this iterator.
+
+Example:
+import numpy as np
+PyArr = np.arange(0,50,6)
+PyArr = PyArr.reshape(3,3)
+print (PyArr)
+
+for Item in np.nditer(PyArr, op_flags = ['readwrite']):
+    Item[...]=2+Item
+print (PyArr)
+
+NumPy Matrix Multiplication
+The Multiplication of matrix is basically an operation where we take two matrices as input and multiply rows of the first matrix to the columns of the second matrix, producing a single matrix as the output. But there is an important thing that we have to ensure, that is the number of rows in the first matrix should be equal to the number of columns in the second matrix.
+
+The process of multiplication of matrix in Numpy is commonly known as Vectorization. The main goal of the vectorization process is to reduce the use of for loops for carrying out such operations. And when the usage of for loop is skipped from the program it will reduce the overall execution time of the code.
+
+Three different ways for Matrix Multiplication
+Using the multiply() Function
+This function will return the element-wise multiplication of two given arrays.
+
+Using the matmul() Function
+This function will return the matrix product of the two input arrays.
+
+Using the dot() Function
+This function will return the scalar or dot product of two given arrays.
+
+Using multiply() Function
+It is used when we want to do the multiplication of two arrays. This method will return the product of arr1 and arr2 with the multiplication done element-wise.
+
+Syntax:
+numpy.multiply(arr1, arr2, /, out, *)
+
+Example:
+import numpy as np  
+PyArr1 = np.array([[11,2,23],[14,75,6],[17,8,9]], ndmin=3) 
+print(PyArr1)
+PyArr2 = np.array([[9,8,7],[6,5,4],[3,2,1]], ndmin=3)    
+print(PyArr2)
+PyResult = np.multiply(PyArr1,PyArr2)  
+print(PyResult)
+
+
+NOTE:
+[[[ 99  16 161]
+  [ 84 375  24]
+  [ 51  16   9]]]
+
+matmul() Function
+It is used to return the matrix product of two given arrays.
+
+Syntax:
+np.matmul(array a, array b)
+
+Example:
+import numpy as np
+PyArr1 = np.array([[1,2,3], [4,5,6],[1,2,1]])
+print(PyArr1)
+PyArr2 = np.array([[1,1,1], [0,1,0], [1,1,1]])
+print(PyArr2)
+PyArr3 = np.matmul(PyArr1,PyArr2)
+print(PyArr3)
+
+
+NOTE:
+1*1+2*0+3*1=4 
+1*1+2*1+3*1=6
+1*1+2*0+3*1=4
+
+Example:
+import numpy.matlib 
+import numpy as np 
+PyArr1 = [[1,4],[2,1]] 
+print("A is",PyArr1)
+PyArr2 = [1,2]
+print("B is",PyArr2)
+print("AxB is")
+print(np.matmul(PyArr1,PyArr2))
+print("BxA is ")
+print (np.matmul(PyArr2,PyArr1)) 
+
+dot() function
+The dot product of any two given matrices using dot() function in the NumPy library is basically their matrix product. The only major difference is that in dot product we can have scalar values as well. Thus dot product of two matrices is also known as Scalar product.
+
+Syntax:
+numpy.dot(a, b, out=None)
+
+Example:
+import numpy as np
+PyArr1 = np.array([7,9,8])
+PyArr2 = np.array([2,5,6])
+print(PyArr1)
+print(PyArr2)
+PyArr3 = np.dot(PyArr1,PyArr2)
+print(PyArr3)
+
+NOTE: 14 +45 +48=107
+
+Example:
+import numpy as np
+PyArr1 = np.array([[1,4],[3,1]])
+PyArr2 = np.array([[4,5],[6,5]])
+print(PyArr1)
+print(PyArr2)
+PyArr3 = np.dot(PyArr1, PyArr2)
+print(PyArr3)
+
+NumPy append() function  
+It is mainly used to append or add something to an existing array.It always append the values at the end of the array and that too along the mentioned axis. It is mainly used to merge two arrays and return a new array as a result. 
+
+Syntax:
+numpy.append(a, values, axis=None)
+
+Example:
+import numpy as np  
+PyArr1 = np.array([[1, 2, 3], [7, 8, 9]])  
+PyArr2 = np.array([[11, 21, 31], [42, 52, 62]])  
+print(PyArr1)
+print(PyArr2)
+PyArr3 = np.append(PyArr1,PyArr2)  
+print(PyArr3)
+
+Example 2: With axis=0 & axis=1
+import numpy as np  
+PyArr1 = np.array([[1, 2, 3], [7, 8, 9]])  
+PyArr2 = np.array([[11, 21, 31], [42, 52, 62]])  
+print(PyArr1)
+print(PyArr2)
+PyArr3 = np.append(PyArr1,PyArr2,axis=0)  
+print(PyArr3)
+PyArr4 = np.append(PyArr1,PyArr2,axis=1)  
+print(PyArr4)
