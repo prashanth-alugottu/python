@@ -3,11 +3,10 @@
 def prime_numer():
     a=3
     for n in range(2,a):
-        if a%2==0 or a%n==0:
-            print("Not Prime")
-        else:
-            print("Prime number")
-            
+        for i in range(2,n):
+            if n%i==0:
+                return 
+            print(n)
 def fibonacci():
     a,b=0,1
     res=[0]

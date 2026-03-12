@@ -21,6 +21,7 @@ def sum_num(nums):
         num_sum+=num
         print(num_sum)
 
+
         
 # ====================================================================================
 # 3. Problem:
@@ -113,7 +114,7 @@ def second_largest(nums):
 # Example:[5, 10, 7] → [0, 5, -3]
 
 def current_pre_diff(nums):
-    prev = 0
+    prev = nums[0]
     result=[]
     for num in nums:
         value=num-prev

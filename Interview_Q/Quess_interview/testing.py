@@ -3,9 +3,9 @@ from collections import Counter
 
 def analyze_text(text)-> dict:
     words = re.findall(r"[a-zA-Z]+",text.lower())
-    # print(words)
+    print(words)
     counts = Counter(words)
-    # print(counts)
+    print(counts)
     top = counts.most_common(3)
     print(top)
     print(dict(top))
@@ -15,7 +15,7 @@ def analyze_text(text)-> dict:
     #     sum1 = sum1 + len(w)
     # rr = sum1/len(words)
     # print(rr)
-    
+    print(len(words))
     print(sum(len(w) for w in words)/len(words))
     
 text = "Hello world!How@are you doing today? today today today"
